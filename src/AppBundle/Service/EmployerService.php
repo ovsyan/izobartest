@@ -20,4 +20,9 @@ class EmployerService
             ->getEmployersByUnitName($unitName);
     }
 
+    public function getEmployerInfoByFullName($lastName, $firstName)
+    {
+        return $this->entityManager->getRepository(Employer::class)
+            ->getEmployerInfoByFullName($lastName, $firstName);
+    }
 }

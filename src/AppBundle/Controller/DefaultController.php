@@ -36,4 +36,20 @@ class DefaultController extends Controller
             'unit' => $unit
         ]);
     }
+
+    /**
+     * @Route("/employer/{lastName}-{firstName}", name="employer")
+     */
+    public function showEmployerInfoAction($lastName, $firstName, Request $request)
+    {
+        $employerService = $this->get('employer.service');
+
+        if (!$employerService->getEmployerInfoByFullName($lastName, $firstName)) {
+            throw new NotFoundException();
+        }
+
+        return $this->render('default/employer_info.html.twig', [
+            'employer' => $employerService->getEmployerInfoByFullName($lastName, $firstName)
+        ]);
+    }
 }

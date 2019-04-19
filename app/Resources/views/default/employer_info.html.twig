@@ -4,17 +4,45 @@
 <div id="wrapper">
     <div id="container">
         <div id="welcome">
-            <h1>List of {{ unit }} employers:</h1>
+            <h1>
+                {{ employer.first_name }}
+                {{ employer.last_name }}
+                {{ employer.surname }}
+            </h1>
         </div>
 
         <div id="status">
-            <ul>
-                {% for employer in employers %}
-                    <li>
-                        <a href="{{ path('employer',{firstName:employer.first_name,lastName:employer.last_name}) }}">{{ employer.first_name }} {{ employer.last_name }}
-                            - {{ employer.position }}</a></li>
-                {% endfor %}
-            </ul>
+            <p>
+                <i>
+                    <b>Position:</b>
+                </i>
+                {{ employer.position }}
+            </p>
+            <p>
+                <i>
+                    <b>Email:</b>
+                </i>
+                {{ employer.email }}
+            </p>
+            <p>
+                <i>
+                    <b>Unit:</b>
+                </i>
+                {{ employer.unit.name }}
+            </p>
+
+            {% if employer.phone_number %}
+                <p>
+                    <i>
+                        <b>Phone number:</b>
+                    </i>
+                    {{ employer.phone_number }}
+                </p>
+            {% endif %}
+
+            {% if employer.photo %}
+                <img src="{{ employer.photo }}">
+            {% endif %}
         </div>
 
         {% endblock %}

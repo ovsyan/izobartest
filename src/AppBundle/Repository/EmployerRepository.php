@@ -28,4 +28,14 @@ class EmployerRepository extends EntityRepository
             ->setParameter('unit_name', $unit)
             ->getQuery();
     }
+
+    public function getEmployerInfoByFullName($lastName, $firstName)
+    {
+        return $this->getEntityManager()
+            ->getRepository(Employer::class)
+            ->findOneBy([
+                'first_name' => $firstName,
+                'last_name' => $lastName
+            ]);
+    }
 }
