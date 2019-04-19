@@ -19,4 +19,12 @@ class UnitService
         return $this->entityManager->getRepository(Unit::class)
             ->getAllUnitNames();
     }
+
+    public function findUnitByName($unitName)
+    {
+        return $this->entityManager->getRepository(Unit::class)
+            ->findOneBy([
+                'name' => $unitName
+            ]);
+    }
 }

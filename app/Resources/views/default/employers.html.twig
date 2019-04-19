@@ -4,13 +4,13 @@
 <div id="wrapper">
     <div id="container">
         <div id="welcome">
-            <h1>List of units:</h1>
+            <h1>List of {{ unit }} employers:</h1>
         </div>
 
         <div id="status">
             <ul>
-                {% for unit in units %}
-                    <li><a href="{{ path('employers',{unit: unit.name}) }}">{{ unit.name }}</a></li>
+                {% for employer in employers %}
+                    <li><a href="{{ path('employers',{unit:employer.username}) }}">{{ employer.first_name }} {{ employer.last_name }} - {{ employer.position }}</a></li>
                 {% endfor %}
             </ul>
         </div>

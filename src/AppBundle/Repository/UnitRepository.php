@@ -14,6 +14,5 @@ class UnitRepository extends EntityRepository
                 'SELECT u.name FROM AppBundle:Unit u ORDER BY u.name ASC'
             )
             ->getResult();
-
     }
 }

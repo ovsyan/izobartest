@@ -55,3 +55,8 @@ services:
     class: AppBundle\Service\UnitService
     arguments: ['@doctrine.orm.default_entity_manager']
     public: true
+
+  employer.service:
+    class: AppBundle\Service\EmployerService
+    arguments: ['@doctrine.orm.default_entity_manager']
+    public: true
