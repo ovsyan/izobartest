@@ -87,14 +87,13 @@ hwi_oauth:
       type:                facebook
       client_id:           '%facebook_client_id%'
       client_secret:        '%facebook_secret%'
+      scope:  "email"
       options:
         display: popup #dialog is optimized for popup window
         auth_type: rerequest # Re-asking for Declined Permissions
-        csrf: true
 
     vkontakte:
-      type:                vkontakte
-      client_id:           '%vk_client_id%'
-      client_secret:       '%vk_secret%'
-      options:
-        csrf: true
+      type: vkontakte
+      client_id:  '%vk_client_id%'
+      client_secret:  '%vk_secret%'
+      scope:  "email"
