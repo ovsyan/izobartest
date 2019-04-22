@@ -12,6 +12,11 @@
         </div>
 
         <div id="status">
+            {% if employer.photo %}
+                <p>
+                    <img id="avatar" src="{{ absolute_url(avatar_directory) }}/{{ employer.photo.filename }}" alt="{{ employer.first_name }} {{ employer.last_name }}">
+                </p>
+            {% endif %}
             <p>
                 <i>
                     <b>Position:</b>
@@ -40,9 +45,6 @@
                 </p>
             {% endif %}
 
-            {% if employer.photo %}
-                <img src="{{ employer.photo }}">
-            {% endif %}
         </div>
 
         {% endblock %}
@@ -106,7 +108,11 @@
                     display: block;
                     font-size: 75%;
                 }
-
+                #avatar {
+                    float:left; /* Выравнивание по левому краю */
+                    margin: 7px 7px 7px 0; /* Отступы вокруг картинки */
+                    max-width: 200px;
+                }
                 #icon-status, #icon-book {
                     float: left;
                     height: 64px;

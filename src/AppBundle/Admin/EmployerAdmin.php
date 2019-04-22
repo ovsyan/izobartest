@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\Employer;
 
 class EmployerAdmin extends AbstractAdmin
 {
@@ -22,7 +24,7 @@ class EmployerAdmin extends AbstractAdmin
         $form->add('plainPassword', PasswordType::class);
         $form->add('first_name', TextType::class);
         $form->add('last_name', TextType::class);
-        $form->add('surname', TextType::class,[
+        $form->add('surname', TextType::class, [
             'required' => false
         ]);
         $form->add('email', TextType::class);
@@ -31,15 +33,15 @@ class EmployerAdmin extends AbstractAdmin
             'choice_label' => 'name',
         ]);
         $form->add('position', TextType::class);
-        $form->add('enabled', CheckboxType::class,[
+        $form->add('enabled', CheckboxType::class, [
             'required' => false
         ]);
-        $form->add('phone_number', TextType::class,[
+        $form->add('phone_number', TextType::class, [
             'required' => false
         ]);
-        $form->add('photo', FileType::class,[
+        $form->add('photo', FileType::class, [
             'required' => false
-        ]);//@TODO file
+        ]);
     }
 
     protected function configureDatagridFilters(DatagridMapper $filter)
@@ -72,4 +74,13 @@ class EmployerAdmin extends AbstractAdmin
     {
         return $this->userManager;
     }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'dataclass' => Employer::class
+        ]);
+    }
+
+
 }

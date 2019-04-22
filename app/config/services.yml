@@ -60,3 +60,14 @@ services:
     class: AppBundle\Service\EmployerService
     arguments: ['@doctrine.orm.default_entity_manager']
     public: true
+
+  AppBundle\Service\FileUploader:
+    arguments:
+      $targetDirectory: '%avatar_directory%'
+
+  AppBundle\EventListener\AvatarUploadListener:
+    tags:
+      - { name: doctrine.event_listener, event: prePersist }
+      - { name: doctrine.event_listener, event: preUpdate }
+      - { name: doctrine.event_listener, event: postLoad }
+      - { name: doctrine.event_listener, event: uploadFile }

@@ -7,6 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    avatar_directory: '%kernel.project_dir%/web/uploads/avatars'
 
 framework:
     #esi: ~
@@ -37,7 +38,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
-
+    globals:
+      avatar_directory: '/uploads/avatars'
 # Doctrine Configuration
 doctrine:
     dbal:
