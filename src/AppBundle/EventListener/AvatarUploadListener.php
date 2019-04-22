@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\EventListener;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -37,13 +38,13 @@ class AvatarUploadListener
             return;
         }
 
-        $file = $entity->photo;
+        $file = $entity->getPhoto();
 
         if ($file instanceof UploadedFile) {
             $fileName = $this->uploader->upload($file);
-            $entity->photo = $fileName;
+            $entity->setPhoto($fileName);
         } elseif ($file instanceof File) {
-            $entity->photo = $file->getFilename();
+            $entity->setPhoto($file->getFilename());
         }
     }
 
@@ -56,8 +57,8 @@ class AvatarUploadListener
             return;
         }
 
-        if ($fileName = $entity->photo) {
-            $entity->photo = new File($this->uploader->getTargetDirectory().'/'.$fileName);
+        if ($fileName = $entity->getPhoto()) {
+            $entity->setPhoto(new File($this->uploader->getTargetDirectory() . '/' . $fileName));
         }
     }
 }

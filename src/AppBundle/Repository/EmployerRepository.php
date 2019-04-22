@@ -3,7 +3,6 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Employer;
-use AppBundle\Entity\Unit;
 use Doctrine\ORM\EntityRepository;
 
 class EmployerRepository extends EntityRepository

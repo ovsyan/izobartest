@@ -5,16 +5,18 @@
     <div id="container">
         <div id="welcome">
             <h1>
-                {{ employer.first_name }}
-                {{ employer.last_name }}
-                {{ employer.surname }}
+                {{ employer.first_name ~
+                 employer.last_name ~
+                 employer.surname }}
             </h1>
         </div>
 
         <div id="status">
             {% if employer.photo %}
                 <p>
-                    <img id="avatar" src="{{ absolute_url(avatar_directory) }}/{{ employer.photo.filename }}" alt="{{ employer.first_name }} {{ employer.last_name }}">
+                {% if employer.photo.filename is defined  %}
+                    <img id="avatar" src="{{ asset('uploads/avatars/')~employer.photo.filename }}" alt="{{ employer.first_name ~ employer.last_name }}">
+                {% endif %}
                 </p>
             {% endif %}
             <p>
@@ -46,7 +48,7 @@
             {% endif %}
 
         </div>
-
+        {% include ':default:comment.html.twig' %}
         {% endblock %}
 
         {% block stylesheets %}

@@ -61,6 +61,11 @@ services:
     arguments: ['@doctrine.orm.default_entity_manager']
     public: true
 
+  comment.service:
+    class: AppBundle\Service\CommentService
+    arguments: ['@doctrine.orm.default_entity_manager']
+    public: true
+
   AppBundle\Service\FileUploader:
     arguments:
       $targetDirectory: '%avatar_directory%'

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\CommentType;
 use Http\Discovery\Exception\NotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,8 +49,20 @@ class DefaultController extends Controller
             throw new NotFoundException();
         }
 
+        $employer = $employerService->getEmployerInfoByFullName($lastName, $firstName);
+        $commentService = $this->get('comment.service');
+        $form = $this->createForm(CommentType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $commentService->createComment($this->getUser(), $employer, $data['content']);
+        }
+
         return $this->render('default/employer_info.html.twig', [
-            'employer' => $employerService->getEmployerInfoByFullName($lastName, $firstName)
+            'employer' => $employer,
+            'comments' => $commentService->getCommentsAboutUser($employer),
+            'commentForm' => $form->createView()
         ]);
     }
 }

@@ -1,0 +1,24 @@
+<h2>Comments</h2>
+{% if comments %}
+    {% for comment in comments %}
+        <div>
+            <p>
+                <a href="{{ path('employer',{firstName:comment.author.first_name,lastName:comment.author.last_name}) }}">
+                    {{ comment.author.first_name }} {{ comment.author.last_name }}
+                </a>
+                writes at {{ comment.date_time|date('d m Y H:i') }}
+            </p>
+            <p>
+                {{ comment.content }}
+            </p>
+        </div>
+    {% endfor %}
+{% else %}
+    no comments
+{% endif %}
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {{ form_start(commentForm) }}
+    {{ form_widget(commentForm) }}
+    {{ form_end(commentForm) }}
+{% endif %}

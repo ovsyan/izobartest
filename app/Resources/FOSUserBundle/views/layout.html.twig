@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
 </head>
 <body>
 <div>
@@ -28,9 +28,16 @@
 <div>
     {% block fos_user_content %}
     {% endblock fos_user_content %}
-    <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}">
-        <span>Login with VK</span>
-    </a>
+    <p>
+        <a href="{{ path('hwi_oauth_service_redirect', {'service': 'vkontakte' }) }}">
+            <span>Login with VK</span>
+        </a>
+    </p>
+    <p>
+        <a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}">
+            <span>Login with Facebook</span>
+        </a>
+    </p>
 </div>
 </body>
 </html>

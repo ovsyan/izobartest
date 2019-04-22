@@ -38,7 +38,7 @@ class Employer extends BaseUser
      *
      * @Assert\File(mimeTypes={"image/jpeg"})
      */
-    public $photo;
+    private $photo;
 
     /**
      * @ORM\Column(type="string",nullable=true)
@@ -79,7 +79,17 @@ class Employer extends BaseUser
     {
         $this->unit = $unit;
     }
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
 
+    public function setPhoto($photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
     public function __construct()
     {
         parent::__construct();
