@@ -7,10 +7,13 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and app.user.first_name is defined  %}
+    {{ 'layout.logged_in_as'|trans({'%username%': app.user.first_name~' '~app.user.last_name }, 'FOSUserBundle') }} |
     <a href="{{ path('fos_user_security_logout') }}">
         {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+    </a>
+{% else %}
+    <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
     </a>
 {% endif %}
 {% block body %}{% endblock %}

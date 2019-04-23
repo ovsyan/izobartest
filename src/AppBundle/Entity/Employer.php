@@ -2,21 +2,29 @@
 
 namespace AppBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EmployerRepository")
  * @ORM\Table(name="employer")
  */
-class Employer extends BaseUser
+class Employer extends OAuthUser implements \Serializable
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\Email()
+     */
+    public $email;
 
     /**
      * @ORM\Column(type="string")
@@ -34,11 +42,10 @@ class Employer extends BaseUser
     public $surname;
 
     /**
-     * @ORM\Column(type="string",nullable=true)
-     *
+     * @ORM\Column(type="object",nullable=true)
      * @Assert\File(mimeTypes={"image/jpeg"})
      */
-    private $photo;
+    public $photo;
 
     /**
      * @ORM\Column(type="string",nullable=true)
@@ -79,19 +86,46 @@ class Employer extends BaseUser
     {
         $this->unit = $unit;
     }
-    public function getPhoto()
+
+    /**
+     * @return mixed
+     */
+    public function getId()
     {
-        return $this->photo;
+        return $this->id;
     }
 
-    public function setPhoto($photo): self
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
     {
-        $this->photo = $photo;
+        $this->id = $id;
+    }
 
-        return $this;
-    }
-    public function __construct()
+    public function serialize()
     {
-        parent::__construct();
+        return serialize(array(
+            $this->first_name,
+            $this->last_name,
+            $this->surname,
+            $this->phone_number,
+            $this->position,
+            $this->email
+        ));
     }
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+
+        list(
+            $this->first_name,
+            $this->last_name,
+            $this->surname,
+            $this->phone_number,
+            $this->position,
+            $this->email) = $data;
+
+    }
+
 }

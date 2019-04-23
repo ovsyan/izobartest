@@ -20,13 +20,13 @@ class Comment
 
     /**
      * @ORM\ManyToOne(targetEntity="Employer")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id", onDelete="CASCADE"))
      */
     public $author;
 
     /**
      * @ORM\ManyToOne(targetEntity="Employer")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE"))
      */
     public $user_id;
 

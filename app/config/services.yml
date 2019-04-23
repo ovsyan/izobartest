@@ -39,8 +39,7 @@ services:
     arguments: [~, AppBundle\Entity\Employer, ~]
     tags:
       - { name: sonata.admin, manager_type: orm, label: Employer }
-    calls:
-      - [ setUserManager, ['@fos_user.user_manager'] ]
+
   admin.unit:
     class: AppBundle\Admin\UnitAdmin
     arguments: [~, AppBundle\Entity\Unit, ~]
@@ -49,7 +48,7 @@ services:
 
   my.oauth_aware.user_provider.service:
     class: AppBundle\Security\Core\User\OauthUserProvider
-    arguments: ['@fos_user.user_manager', {identifier: email, facebook: facebook, vkontakte: vkontakte}]
+    arguments: ['@doctrine',AppBundle\Entity\Employer, {identifier: email, facebook: facebook, vkontakte: vkontakte}]
 
   unit.service:
     class: AppBundle\Service\UnitService

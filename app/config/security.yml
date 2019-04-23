@@ -11,6 +11,8 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
+        hwi:
+            id: my.oauth_aware.user_provider.service
         in_memory:
             memory:
                 users:

@@ -7,11 +7,8 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\Employer;
@@ -20,8 +17,6 @@ class EmployerAdmin extends AbstractAdmin
 {
     protected function configureFormFields(FormMapper $form)
     {
-        $form->add('username', TextType::class);
-        $form->add('plainPassword', PasswordType::class);
         $form->add('first_name', TextType::class);
         $form->add('last_name', TextType::class);
         $form->add('surname', TextType::class, [
@@ -33,9 +28,6 @@ class EmployerAdmin extends AbstractAdmin
             'choice_label' => 'name',
         ]);
         $form->add('position', TextType::class);
-        $form->add('enabled', CheckboxType::class, [
-            'required' => false
-        ]);
         $form->add('phone_number', TextType::class, [
             'required' => false
         ]);
@@ -54,25 +46,8 @@ class EmployerAdmin extends AbstractAdmin
     {
         $list->add('first_name');
         $list->addIdentifier('last_name');
-        $list->add('username');
         $list->addIdentifier('email');
         $list->add('unit.name');
-    }
-
-    public function preUpdate($user)
-    {
-        $this->getUserManager()->updateCanonicalFields($user);
-        $this->getUserManager()->updatePassword($user);
-    }
-
-    public function setUserManager(UserManagerInterface $userManager)
-    {
-        $this->userManager = $userManager;
-    }
-
-    public function getUserManager()
-    {
-        return $this->userManager;
     }
 
     public function configureOptions(OptionsResolver $resolver)

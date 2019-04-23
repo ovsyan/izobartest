@@ -14,14 +14,14 @@ class FileUploader
         $this->targetDirectory = $targetDirectory;
     }
 
-    public function upload(UploadedFile $file)
+    public function upload(UploadedFile $file = null)
     {
         $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-// ... handle exception if something happens during file upload
+            throw new FileException($e->getMessage());
         }
 
         return $fileName;

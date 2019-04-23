@@ -38,13 +38,13 @@ class AvatarUploadListener
             return;
         }
 
-        $file = $entity->getPhoto();
+        $file = $entity->photo;
 
         if ($file instanceof UploadedFile) {
             $fileName = $this->uploader->upload($file);
-            $entity->setPhoto($fileName);
+            $entity->photo = $fileName;
         } elseif ($file instanceof File) {
-            $entity->setPhoto($file->getFilename());
+            $entity->photo = $file->getFilename();
         }
     }
 
@@ -57,8 +57,8 @@ class AvatarUploadListener
             return;
         }
 
-        if ($fileName = $entity->getPhoto()) {
-            $entity->setPhoto(new File($this->uploader->getTargetDirectory() . '/' . $fileName));
+        if ($fileName = $entity->photo) {
+            $entity->photo = new File($this->uploader->getTargetDirectory() . '/' . $fileName);
         }
     }
 }

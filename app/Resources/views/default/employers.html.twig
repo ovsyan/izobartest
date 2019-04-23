@@ -8,13 +8,17 @@
         </div>
 
         <div id="status">
-            <ul>
-                {% for employer in employers %}
-                    <li>
-                        <a href="{{ path('employer',{firstName:employer.first_name,lastName:employer.last_name}) }}">{{ employer.first_name }} {{ employer.last_name }}
-                            - {{ employer.position }}</a></li>
-                {% endfor %}
-            </ul>
+            {% if employers %}
+                <ul>
+                    {% for employer in employers %}
+                        <li>
+                            <a href="{{ path('employer',{firstName:employer.first_name,lastName:employer.last_name}) }}">{{ employer.first_name }} {{ employer.last_name }}
+                                - {{ employer.position }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                No employers yet
+            {% endif %}
         </div>
 
         {% endblock %}

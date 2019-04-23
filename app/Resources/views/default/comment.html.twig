@@ -1,9 +1,9 @@
 <h2>Comments</h2>
-{% if comments %}
+{% if comments  %}
     {% for comment in comments %}
         <div>
             <p>
-                <a href="{{ path('employer',{firstName:comment.author.first_name,lastName:comment.author.last_name}) }}">
+                <a href="{{ path('employer',{firstName: comment.author.first_name, lastName: comment.author.last_name}) }}">
                     {{ comment.author.first_name }} {{ comment.author.last_name }}
                 </a>
                 writes at {{ comment.date_time|date('d m Y H:i') }}
